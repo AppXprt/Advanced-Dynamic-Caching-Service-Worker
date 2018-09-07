@@ -11,30 +11,28 @@ self.addEventListener('message', function(event) {
 	data = event.data;
 	console.log("Message Received from site!");
 	console.log("Data: %o", data);
-//	if(data.Cache_Files.isArray){
-		precacheFiles = precacheOriginal;
-                data.Cache_Files.forEach(function(item) {
-			var loop = 0;
-                        console.log('Checking ', item);
-			for (loop = 0; loop < blacklist.length; loop++) {
-				console.log('	against blacklist:', blacklist[loop]);
-        			if (item.indexOf(blacklist[loop]) !== -1) { console.log("Not Caching Blacklisted URL:", item); return; }
-  			}
-                        console.log("Adding non-blacklisted url to cache:", item);
-                        precacheFiles.push(item);
+	precacheFiles = precacheOriginal;
+        data.Cache_Files.forEach(function(item) {
+		var loop = 0;
+		console.log('Checking ', item);
+		for (loop = 0; loop < blacklist.length; loop++) {
+			console.log('	against blacklist:', blacklist[loop]);
+			if (item.indexOf(blacklist[loop]) !== -1) { console.log("Not Caching Blacklisted URL:", item); return; }
+		}
+		//console.log("Adding non-blacklisted url to cache:", item);
+		precacheFiles.push(item);
 	});
-//      console.log("Precache Files Updated from Site Message: %o", precacheFiles);
+        //console.log("Precache Files Updated from Site Message: %o", precacheFiles);
 	precache();
 });
 self.addEventListener('install', function(event) {
-  console.log('[ViXiV] The service worker is being installed.');
+  //console.log('[ViXiV] The service worker is being installed.');
   event.waitUntil(precache().then(function() {
     console.log('[ViXiV] Skip waiting on install');
     return self.skipWaiting();
   }));
 });
 self.addEventListener('activate', function(event) {
-  console.log('[ViXiV] Claiming clients for current page');
   return self.clients.claim();
 });
 self.addEventListener('fetch', function(event) {
@@ -67,8 +65,7 @@ self.addEventListener('fetch', function(event) {
 
 function precache() {
   return caches.open(CACHE).then(function (cache) {
-    console.log("Updating Cache for: ", precacheFiles);
-
+    //console.log("Updating Cache for: ", precacheFiles);
     return cache.addAll(precacheFiles);
   });
 }
@@ -76,20 +73,20 @@ function precache() {
 function fromCache(request) {
   return caches.open(CACHE).then(function (cache) {
     //console.log("Checking Cache:", cache);
-    console.log("Checking %o", CACHE);
-    console.log("	against request:", request);
+    //console.log("Checking %o", CACHE);
+    //console.log("	against request:", request);
     return cache.match(request, {
       ignoreSearch: true
     }).then(function (matching) {
-    console.log("Match:", matching);
-//      return matching || Promise.reject('no-match');
+    	//console.log("Match:", matching);
+	//return matching || Promise.reject('no-match');
         if(matching){
                 return matching;
         }
         throw Error('No Local Cache Matching Request: ');
 
     }).catch(function(e) {
-        console.log(e, request, "Forwarding request to Network...");
+        //console.log(e, request, "Forwarding request to Network...");
         return fromServer(request);
      });
 
@@ -99,7 +96,7 @@ function fromCache(request) {
 function update(request) {
   return caches.open(CACHE).then(function (cache) {
     return fetch(request).then(function (response) {
-      console.log('Updated Response Received for Cache:', response);
+      //console.log('Updated Response Received for Cache:', response);
       if(request.method === 'GET'){
 	   cache.put(request, response);
 	   return response;
