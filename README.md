@@ -1,1 +1,1 @@
-# Dynamic-Caching-Service-Worker
+# Advanced-Dynamic-Caching-Service-Worker
