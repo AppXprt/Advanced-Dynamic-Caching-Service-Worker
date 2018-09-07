@@ -1,4 +1,4 @@
-//This is the service worker with advanced dynamic caching through site messages
+//This is an advanced service worker with dynamic caching through site message communication
 var CACHE = 'ViXiV-DynamicCache';
 const OFFLINE = 'offline.html';
 
