@@ -1,4 +1,5 @@
-//This is an advanced service worker with dynamic caching through site message communication
+Copyright (C) 2017-2018, ViXiV Technologies - vixivtech@gmail.com
+
 var CACHE = 'ViXiV-DynamicCache';
 const OFFLINE = 'offline.html';
 
