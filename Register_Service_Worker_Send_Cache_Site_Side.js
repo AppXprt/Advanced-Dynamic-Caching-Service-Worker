@@ -1,4 +1,4 @@
-
+//Copyright (C) 2017-2018, ViXiV Technologies - vixivtech@gmail.com
 var Cache_Files = [];
 
 Cache_Files = learn_page();
