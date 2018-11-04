@@ -1,4 +1,4 @@
-Copyright (C) 2017-2018, ViXiV Technologies - vixivtech@gmail.com
+//Copyright (C) 2017-2018, ViXiV Technologies - vixivtech@gmail.com
 
 var CACHE = 'ViXiV-DynamicCache';
 const OFFLINE = 'offline.html';
